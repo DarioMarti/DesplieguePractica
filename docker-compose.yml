@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - my-network
+
+  web:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www/html
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+    networks:
+      - my-network
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: bookstore
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./mySqlDB:/docker-entrypoint-initdb.d
+    networks:
+      - my-network
+
+volumes:
+  db_data:
+
+networks:
+  my-network:

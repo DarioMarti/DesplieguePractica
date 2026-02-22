@@ -29,7 +29,7 @@
 
 <div class="container">
     <h2>What should I do??</h2>
-    <div class="well well-lg">Thinking...</div>
+    <div class="well well-lg">Pensando...</div>
 
     <div class="row">
         <div class="col-md-6">
